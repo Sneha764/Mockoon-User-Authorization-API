@@ -59,7 +59,7 @@ mockoon-cli start --data ./mock-environment.json --port 3001
 
 1. Open Postman
 2. Import `postman-auth-tests.json`
-3. Run the collection (currently has 10 tests)
+3. Run the collection (currently has 17 tests)
 
 ### Tests Cover the following routes:
 - `POST /auth/signup`: Returns `201 Created`, a confirmation message, and generated `userId`
@@ -70,7 +70,10 @@ mockoon-cli start --data ./mock-environment.json --port 3001
   - With valid Authorization (i.e header exists): returns profile details
   - Without token (if header doesnt exist): returns `401 Unauthorized`
 - `GET /users`: Returns a list of user objects
-
+- `PUT /users/:id`: Updates user information for the given id. Returns a success message with updated details
+- `DELETE /users/:id`: Deletes the user with the given id. Returns a confirmation message and deleted userId
+- `GET /`: Returns a text saying server is running.
+ 
 ---
 
 ## Frontend UI
