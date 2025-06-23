@@ -1,0 +1,324 @@
+{
+	"id": "c8a73078-5cbc-437d-930b-fafb1ce2d09c",
+	"name": "Mockoon Testing",
+	"timestamp": "2025-06-23T07:08:27.241Z",
+	"collection_id": "45527190-7249f98f-b315-4256-9118-47c81cc925fb",
+	"folder_id": 0,
+	"environment_id": "0",
+	"totalPass": 17,
+	"delay": 0,
+	"persist": true,
+	"status": "finished",
+	"startedAt": "2025-06-23T07:08:22.997Z",
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "0e64c373-2da7-432e-883e-22ee6847d3be",
+			"name": "Signup - Create new user",
+			"url": "http://localhost:3001/auth/signup",
+			"time": 23,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status code is 201": true,
+				"Response has userId and success message": true
+			},
+			"testPassFailCounts": {
+				"Status code is 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has userId and success message": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				23
+			],
+			"allTests": [
+				{
+					"Status code is 201": true,
+					"Response has userId and success message": true
+				}
+			]
+		},
+		{
+			"id": "40579d05-33b8-47bd-859a-d3905d52bb87",
+			"name": "Login - Get Token",
+			"url": "http://localhost:3001/auth/login",
+			"time": 26,
+			"responseCode": {
+				"code": 401,
+				"name": "Unauthorized"
+			},
+			"tests": {
+				"Status code is 401 Unauthorized": true,
+				"Response contains error message": true
+			},
+			"testPassFailCounts": {
+				"Status code is 401 Unauthorized": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response contains error message": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				26
+			],
+			"allTests": [
+				{
+					"Status code is 401 Unauthorized": true,
+					"Response contains error message": true
+				}
+			]
+		},
+		{
+			"id": "e84765d5-61ab-4ac8-9855-295407241a76",
+			"name": "Profile - Unauthorized Access",
+			"url": "http://localhost:3001/auth/profile",
+			"time": 8,
+			"responseCode": {
+				"code": 401,
+				"name": "Unauthorized"
+			},
+			"tests": {
+				"Status code is 401": true,
+				"Unauthorized message present": true
+			},
+			"testPassFailCounts": {
+				"Status code is 401": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Unauthorized message present": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				8
+			],
+			"allTests": [
+				{
+					"Status code is 401": true,
+					"Unauthorized message present": true
+				}
+			]
+		},
+		{
+			"id": "fa132e79-7682-4ea1-97d8-b01993384d1d",
+			"name": "Profile - Authorized Access",
+			"url": "http://localhost:3001/auth/profile",
+			"time": 16,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Profile data is returned": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Profile data is returned": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				16
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Profile data is returned": true
+				}
+			]
+		},
+		{
+			"id": "529115f9-3f9e-4fce-9920-fce812e42cb5",
+			"name": "Get All Users",
+			"url": "http://localhost:3001/users",
+			"time": 3029,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response contains array of users": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response contains array of users": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				3029
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response contains array of users": true
+				}
+			]
+		},
+		{
+			"id": "e7d4ed77-f154-4b11-96c6-38d20d595dce",
+			"name": "Update user info using id",
+			"url": "http://localhost:3001/users/2",
+			"time": 317,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status is 200": true,
+				"Response contains update message": true,
+				"Updated fields returned": true
+			},
+			"testPassFailCounts": {
+				"Status is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response contains update message": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Updated fields returned": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				317
+			],
+			"allTests": [
+				{
+					"Status is 200": true,
+					"Response contains update message": true,
+					"Updated fields returned": true
+				}
+			]
+		},
+		{
+			"id": "b513a7ef-d98f-4260-9be1-6331caf3d074",
+			"name": "Delete user using id",
+			"url": "http://localhost:3001/users/2",
+			"time": 19,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status is 200": true,
+				"Response confirms deletion": true
+			},
+			"testPassFailCounts": {
+				"Status is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response confirms deletion": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				19
+			],
+			"allTests": [
+				{
+					"Status is 200": true,
+					"Response confirms deletion": true
+				}
+			]
+		},
+		{
+			"id": "39cf3bbc-4d9b-4250-9f5e-816d817c7530",
+			"name": "Root route",
+			"url": "http://localhost:3001",
+			"time": 16,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Body matches string": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body matches string": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				16
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Body matches string": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 3454,
+	"collection": {
+		"requests": [
+			{
+				"id": "0e64c373-2da7-432e-883e-22ee6847d3be",
+				"method": "POST"
+			},
+			{
+				"id": "40579d05-33b8-47bd-859a-d3905d52bb87",
+				"method": "POST"
+			},
+			{
+				"id": "e84765d5-61ab-4ac8-9855-295407241a76",
+				"method": "GET"
+			},
+			{
+				"id": "fa132e79-7682-4ea1-97d8-b01993384d1d",
+				"method": "GET"
+			},
+			{
+				"id": "529115f9-3f9e-4fce-9920-fce812e42cb5",
+				"method": "GET"
+			},
+			{
+				"id": "e7d4ed77-f154-4b11-96c6-38d20d595dce",
+				"method": "PUT"
+			},
+			{
+				"id": "b513a7ef-d98f-4260-9be1-6331caf3d074",
+				"method": "DELETE"
+			},
+			{
+				"id": "39cf3bbc-4d9b-4250-9f5e-816d817c7530",
+				"method": "GET"
+			}
+		]
+	}
+}

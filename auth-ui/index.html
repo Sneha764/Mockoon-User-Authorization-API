@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Auth UI (Mockoon)</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>User Auth UI (Mockoon)</h1>
+
+    <div class="card">
+      <h2>Signup</h2>
+      <input id="signupEmail" placeholder="Email"><br>
+      <input id="signupPassword" placeholder="Password" type="password"><br>
+      <button onclick="signup()">Signup</button>
+      <p id="signupResult"></p>
+    </div>
+
+    <div class="card">
+      <h2>Login</h2>
+      <input id="loginEmail" placeholder="Email"><br>
+      <input id="loginPassword" placeholder="Password" type="password"><br>
+      <button onclick="login()">Login</button>
+      <p id="loginResult"></p>
+    </div>
+
+    <div class="card">
+      <h2>Get Profile</h2>
+      <button onclick="getProfile()">Get Profile</button>
+      <p id="profileResult"></p>
+    </div>
+
+    <div class="card">
+      <h2>All Users</h2>
+      <button onclick="getAllUsers()">List Users</button>
+      <pre id="userList"></pre>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,1061 @@
+{
+	"info": {
+		"_postman_id": "7249f98f-b315-4256-9118-47c81cc925fb",
+		"name": "Mockoon Testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45527190",
+		"_collection_link": "https://snehayadav-1194740.postman.co/workspace/Workspace-1~821d4da2-9cf9-47fb-84c4-6f0602a4c01c/collection/45527190-7249f98f-b315-4256-9118-47c81cc925fb?action=share&source=collection_link&creator=45527190"
+	},
+	"item": [
+		{
+			"name": "Signup - Create new user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", () => {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response has userId and success message\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property(\"message\");\r",
+							"    pm.expect(jsonData).to.have.property(\"userId\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"testuser@example.com\",\r\n  \"password\": \"password123\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/auth/signup",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"auth",
+						"signup"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "201 Created",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"testuser@example.com\",\r\n  \"password\": \"password123\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/auth/signup",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With"
+						},
+						{
+							"key": "Content-Length",
+							"value": "120"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 23 Jun 2025 06:15:44 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"User testuser@example.com registered successfully\",\n    \"userId\": \"af7c9ea2-aa6a-4fbd-aed1-89973f9ca715\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Login - Get Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.response.code === 200) {\r",
+							"  pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"  });\r",
+							"\r",
+							"  pm.test(\"Response has a token\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property(\"token\");\r",
+							"  });\r",
+							"} else if (pm.response.code === 401) {\r",
+							"  pm.test(\"Status code is 401 Unauthorized\", function () {\r",
+							"    pm.response.to.have.status(401);\r",
+							"  });\r",
+							"\r",
+							"  pm.test(\"Response contains error message\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property(\"error\", \"Invalid credentials\");\r",
+							"  });\r",
+							"} else {\r",
+							"  pm.test(\"Unexpected status code\", function () {\r",
+							"    pm.expect.fail(`Unexpected status code: ${pm.response.code}`);\r",
+							"  });\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"notuser@gmail.com\",\r\n  \"password\": \"p@ss\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/auth/login",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "200 OK - Admin login",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"admin@gmail.com\",\r\n  \"password\": \"p@ss\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/auth/login",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With"
+						},
+						{
+							"key": "Content-Length",
+							"value": "172"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 23 Jun 2025 06:23:04 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Welcome admin Joshuah!\",\n    \"token\": \"29d8c2cd-84c4-4ddb-b9b7-9d79eb15b665\",\n    \"loginTime\": \"Mon Jun 23 2025 03:25:55 GMT+0530 (India Standard Time)\"\n}"
+				},
+				{
+					"name": "200 OK - User login",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"user@gmail.com\",\r\n  \"password\": \"p@ss\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/auth/login",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With"
+						},
+						{
+							"key": "Content-Length",
+							"value": "99"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 23 Jun 2025 06:23:24 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"User login successful\",\n    \"token\": \"Bearer UZ7asfLgWAKVyOAnDa32whl3NIK0biKV\"\n}"
+				},
+				{
+					"name": "401 Unauthorized - Failed login",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"notuser@gmail.com\",\r\n  \"password\": \"p@ss\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/auth/login",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With"
+						},
+						{
+							"key": "Content-Length",
+							"value": "40"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 23 Jun 2025 06:23:50 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": \"Invalid credentials\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Profile - Unauthorized Access",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 401\", () => {\r",
+							"    pm.response.to.have.status(401);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Unauthorized message present\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.error).to.eql(\"Unauthorized access\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/auth/profile",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"auth",
+						"profile"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "401 Unauthorized - No header",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/auth/profile",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"auth",
+								"profile"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With"
+						},
+						{
+							"key": "Content-Length",
+							"value": "40"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 23 Jun 2025 06:25:21 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": \"Unauthorized access\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Profile - Authorized Access",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Profile data is returned\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property(\"email\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer faketoken123",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}/auth/profile",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"auth",
+						"profile"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "200 OK - Header present",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer faketoken123",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}/auth/profile",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"auth",
+								"profile"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With"
+						},
+						{
+							"key": "Content-Length",
+							"value": "93"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 23 Jun 2025 06:25:00 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"123\",\n    \"name\": \"Sneha\",\n    \"email\": \"sneha@example.com\",\n    \"role\": \"user\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Get All Users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains array of users\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.be.an(\"array\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/users",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "200 OK",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/users",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With"
+						},
+						{
+							"key": "Content-Length",
+							"value": "167"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 23 Jun 2025 06:25:37 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": \"1\",\n        \"name\": \"Alice\",\n        \"email\": \"alice@example.com\"\n    },\n    {\n        \"id\": \"2\",\n        \"name\": \"Bob\",\n        \"email\": \"bob@example.com\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "Update user info using id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 200\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains update message\", function () {\r",
+							"  var json = pm.response.json();\r",
+							"  pm.expect(json.message).to.include(\"updated successfully\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Updated fields returned\", function () {\r",
+							"  var json = pm.response.json();\r",
+							"  pm.expect(json).to.have.property(\"updatedFields\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Updated Bob\",\r\n  \"email\": \"bob@update.com\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/users/2",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "200 OK",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Updated Bob\",\r\n  \"email\": \"bob@update.com\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/users/2",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"2"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With"
+						},
+						{
+							"key": "Content-Length",
+							"value": "133"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 23 Jun 2025 06:55:25 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"User 2 updated successfully\",\n    \"updatedFields\": {\n        \"name\": \"Updated Bob\",\n        \"email\": \"bob@update.com\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Delete user using id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 200\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response confirms deletion\", function () {\r",
+							"  var json = pm.response.json();\r",
+							"  pm.expect(json.message).to.include(\"deleted successfully\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/users/2",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "200 OK",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/users/2",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"2"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With"
+						},
+						{
+							"key": "Content-Length",
+							"value": "50"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 23 Jun 2025 06:55:47 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"User 2 deleted successfully\"\n}"
+				},
+				{
+					"name": "404 Not Found",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/users/2",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"2"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With"
+						},
+						{
+							"key": "Content-Length",
+							"value": "43"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 23 Jun 2025 06:56:26 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"User 2 doesnt exist!\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Root route",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Working\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}",
+					"host": [
+						"{{baseURL}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "200 OK",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}",
+							"host": [
+								"{{baseURL}}"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With"
+						},
+						{
+							"key": "Content-Length",
+							"value": "13"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 23 Jun 2025 06:58:25 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "Yup! Working!"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "http://localhost:3001/",
+			"type": "default"
+		}
+	]
+}

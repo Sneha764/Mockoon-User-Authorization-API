@@ -1,0 +1,437 @@
+{
+  "uuid": "e10dad1c-71d0-4325-aea5-c7a0d8b7b653",
+  "lastMigration": 33,
+  "name": "User Auth Service",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3001,
+  "hostname": "",
+  "folders": [],
+  "routes": [
+    {
+      "uuid": "d8ee9f53-9fe8-4b3c-85f3-0852c73f41d7",
+      "type": "http",
+      "documentation": "Simulate user registration - has Dynamic Responses Using Handlebars",
+      "method": "post",
+      "endpoint": "auth/signup",
+      "responses": [
+        {
+          "uuid": "31f5eb7c-b143-4806-a3ba-25fb7ada84ff",
+          "body": "{\n  \"message\": \"User {{body 'email'}} registered successfully\",\n  \"userId\": \"{{faker 'string.uuid'}}\"\n}",
+          "latency": 0,
+          "statusCode": 201,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "c72a8881-92f2-4484-b3d0-d4d654143d8c",
+      "type": "http",
+      "documentation": "login",
+      "method": "post",
+      "endpoint": "auth/login",
+      "responses": [
+        {
+          "uuid": "7b92611f-017d-41b3-81a8-bf06a5d6f054",
+          "body": "{\r\n  \"message\": \"User login successful\",\r\n  \"token\": \"Bearer {{faker 'string.alphanumeric' 32}}\"\r\n}\r\n",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "user login",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "email",
+              "value": "user@gmail.com",
+              "invert": false,
+              "operator": "equals"
+            },
+            {
+              "target": "body",
+              "modifier": "password",
+              "value": "p@ss",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "AND",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "78f5c405-b186-45ba-9129-08e19801b148",
+          "body": "{\r\n  \"message\": \"Welcome admin {{faker 'person.firstName'}}!\",\r\n  \"token\": \"{{faker 'string.uuid'}}\",\r\n  \"loginTime\": \"{{faker 'date.recent'}}\"\r\n}\r\n",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "admin login",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "email",
+              "value": "admin@gmail.com",
+              "invert": false,
+              "operator": "equals"
+            },
+            {
+              "target": "body",
+              "modifier": "password",
+              "value": "p@ss",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "AND",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "6f7b1321-8ddc-46f2-aab0-f3f7b8ae006d",
+          "body": "{\r\n  \"error\": \"Invalid credentials\"\r\n}\r\n",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Failed login",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "3044b5b8-9157-4368-9e26-e8ed77b2fb20",
+      "type": "http",
+      "documentation": "Return user profile - with Header Rule",
+      "method": "get",
+      "endpoint": "auth/profile",
+      "responses": [
+        {
+          "uuid": "8f660952-327b-4847-8cc2-2715738db309",
+          "body": "{\r\n  \"error\": \"Unauthorized access\"\r\n}\r\n",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "header",
+              "modifier": "Authorization",
+              "value": "",
+              "invert": false,
+              "operator": "null"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "ac668d15-2126-4765-836a-764025ee350d",
+          "body": "{\r\n  \"id\": \"123\",\r\n  \"name\": \"Sneha\",\r\n  \"email\": \"sneha@example.com\",\r\n  \"role\": \"user\"\r\n}\r\n",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "3dbfe8b4-0b0d-468d-a828-2e599f390ba6",
+      "type": "http",
+      "documentation": "Admin gets all users",
+      "method": "get",
+      "endpoint": "users",
+      "responses": [
+        {
+          "uuid": "f2a52838-9b10-4611-877a-7a2f9e6b68de",
+          "body": "[\r\n  {\r\n    \"id\": \"1\",\r\n    \"name\": \"Alice\",\r\n    \"email\": \"alice@example.com\"\r\n  },\r\n  {\r\n    \"id\": \"2\",\r\n    \"name\": \"Bob\",\r\n    \"email\": \"bob@example.com\"\r\n  }\r\n]\r\n",
+          "latency": 3000,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "14bf6b6d-e1c8-4041-8193-01a8c35f2b52",
+      "type": "http",
+      "documentation": "Update user info",
+      "method": "put",
+      "endpoint": "users/:id",
+      "responses": [
+        {
+          "uuid": "331aae75-6ad6-4b2a-9b38-aedf96784760",
+          "body": "{\r\n  \"message\": \"User {{urlParam 'id'}} updated successfully\",\r\n  \"updatedFields\": {{body}}\r\n}\r\n",
+          "latency": 300,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "2152908d-ea42-4c98-a0a8-ea7fa3657a24",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "1a4956cb-2b21-4f13-8492-ee55b56ddc71",
+      "type": "http",
+      "documentation": "Delete user",
+      "method": "delete",
+      "endpoint": "users/:id",
+      "responses": [
+        {
+          "uuid": "f36b8d81-1147-4db3-889d-5066f825a133",
+          "body": "{\r\n  \"message\": \"User {{urlParam 'id'}} deleted successfully\"\r\n}\r\n",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "d90eb4d8-824a-4dad-975a-8c9dbe440055",
+          "body": "{\r\n  \"message\": \"User {{urlParam 'id'}} doesnt exist!\"\r\n}\r\n",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": "RANDOM",
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "a4631429-bd1e-4a6f-b674-73fbc03a2f37",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "",
+      "responses": [
+        {
+          "uuid": "61c2f0e7-3a6f-46dd-833b-b0cec76a8c4c",
+          "body": "Yup! Working!",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    }
+  ],
+  "rootChildren": [
+    {
+      "type": "route",
+      "uuid": "d8ee9f53-9fe8-4b3c-85f3-0852c73f41d7"
+    },
+    {
+      "type": "route",
+      "uuid": "c72a8881-92f2-4484-b3d0-d4d654143d8c"
+    },
+    {
+      "type": "route",
+      "uuid": "3044b5b8-9157-4368-9e26-e8ed77b2fb20"
+    },
+    {
+      "type": "route",
+      "uuid": "3dbfe8b4-0b0d-468d-a828-2e599f390ba6"
+    },
+    {
+      "type": "route",
+      "uuid": "14bf6b6d-e1c8-4041-8193-01a8c35f2b52"
+    },
+    {
+      "type": "route",
+      "uuid": "1a4956cb-2b21-4f13-8492-ee55b56ddc71"
+    },
+    {
+      "type": "route",
+      "uuid": "a4631429-bd1e-4a6f-b674-73fbc03a2f37"
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [
+    {
+      "key": "Content-Type",
+      "value": "application/json"
+    },
+    {
+      "key": "Access-Control-Allow-Origin",
+      "value": "*"
+    },
+    {
+      "key": "Access-Control-Allow-Methods",
+      "value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+    },
+    {
+      "key": "Access-Control-Allow-Headers",
+      "value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With"
+    }
+  ],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "data": [],
+  "callbacks": []
+}
