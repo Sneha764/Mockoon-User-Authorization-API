@@ -11,8 +11,8 @@ This project implements a simulation of a user authentication API, and focuses o
 - `POST /auth/login` – Login (returns a token and welcome message)
 - `GET /auth/profile` – Returns user profile if Authorization header is present
 - `GET /users` – Returns list of users
-- `PUT /users/:id` – Update a user (mock only)
-- `DELETE /users/:id` – Delete a user (mock only)
+- `PUT /users/:id` – Update a user 
+- `DELETE /users/:id` – Delete a user
 
 ---
 
