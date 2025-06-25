@@ -1,0 +1,259 @@
+{
+  "uuid": "0142ab25-8f2a-4604-b3eb-b2765461e722",
+  "name": "User Auth Coded Server",
+  "port": 3000,
+  "latency": 0,
+  "headers": [
+    {
+      "key": "Content-Type",
+      "value": "application/json"
+    },
+    {
+      "key": "Access-Control-Allow-Origin",
+      "value": "*"
+    },
+    {
+      "key": "Access-Control-Allow-Methods",
+      "value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+    },
+    {
+      "key": "Access-Control-Allow-Headers",
+      "value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With"
+    }
+  ],
+  "routes": [
+    {
+      "uuid": "52264491-9c2e-445a-a817-2233eb20c620",
+      "method": "post",
+      "endpoint": "/auth/signup",
+      "responses": [
+        {
+          "uuid": "705526b4-4e9b-4fb2-9b1a-0f2b552ccf0a",
+          "statusCode": 201,
+          "body": "{\"message\": \"User {{body 'email'}} registered successfully\", \"userId\": \"{{faker 'string.uuid'}}\"}",
+          "rules": [],
+          "latency": 0,
+          "default": false,
+          "headers": [],
+          "label": "",
+          "filePath": "",
+          "sendFileAsBody": false
+        }
+      ],
+      "responseMode": "SEQUENTIAL"
+    },
+    {
+      "uuid": "6625bb95-1ddd-4cd8-b826-ba46d5b94f56",
+      "method": "post",
+      "endpoint": "/auth/login",
+      "responses": [
+        {
+          "uuid": "dde16044-4f5d-4c3f-88e1-a32160dfcdfa",
+          "statusCode": 200,
+          "body": "{\"message\": \"User login successful\", \"token\": \"Bearer {{faker 'string.alphanumeric' 32}}\"}",
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "email",
+              "value": "user@gmail.com",
+              "operator": "equals"
+            },
+            {
+              "target": "body",
+              "modifier": "password",
+              "value": "p@ss",
+              "operator": "equals"
+            }
+          ],
+          "latency": 0,
+          "default": false,
+          "headers": [],
+          "label": "",
+          "filePath": "",
+          "sendFileAsBody": false
+        },
+        {
+          "uuid": "fcc537e4-c9fd-4d02-80a2-ffc78c678832",
+          "statusCode": 200,
+          "body": "{\"message\": \"Welcome admin {{faker 'person.firstName'}}!\", \"token\": \"{{faker 'string.uuid'}}\", \"loginTime\": \"{{faker 'date.recent'}}\"}",
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "email",
+              "value": "admin@gmail.com",
+              "operator": "equals"
+            },
+            {
+              "target": "body",
+              "modifier": "password",
+              "value": "p@ss",
+              "operator": "equals"
+            }
+          ],
+          "latency": 0,
+          "default": false,
+          "headers": [],
+          "label": "",
+          "filePath": "",
+          "sendFileAsBody": false
+        },
+        {
+          "uuid": "142fd35e-8f3e-40a7-9069-92a38e217d80",
+          "statusCode": 401,
+          "body": "{\"error\": \"Invalid credentials\"}",
+          "rules": [],
+          "latency": 0,
+          "default": true,
+          "headers": [],
+          "label": "",
+          "filePath": "",
+          "sendFileAsBody": false
+        }
+      ],
+      "responseMode": "SEQUENTIAL"
+    },
+    {
+      "uuid": "82295669-fcf4-40d2-a76c-2452b8732ec6",
+      "method": "get",
+      "endpoint": "/auth/profile",
+      "responses": [
+        {
+          "uuid": "6b10e502-80b8-4567-8eea-4ac4e9d0de3a",
+          "statusCode": 401,
+          "body": "{\"error\": \"Unauthorized access\"}",
+          "rules": [
+            {
+              "target": "header",
+              "modifier": "Authorization",
+              "value": "",
+              "operator": "null"
+            }
+          ],
+          "latency": 0,
+          "default": false,
+          "headers": [],
+          "label": "",
+          "filePath": "",
+          "sendFileAsBody": false
+        },
+        {
+          "uuid": "49dd28ee-abd7-459b-a3ed-d3eccefc7b40",
+          "statusCode": 200,
+          "body": "{\"id\": \"123\", \"name\": \"Sneha\", \"email\": \"sneha@example.com\", \"role\": \"user\"}",
+          "rules": [],
+          "latency": 0,
+          "default": true,
+          "headers": [],
+          "label": "",
+          "filePath": "",
+          "sendFileAsBody": false
+        }
+      ],
+      "responseMode": "SEQUENTIAL"
+    },
+    {
+      "uuid": "03885151-659d-4b83-9ac5-10c585550bd6",
+      "method": "get",
+      "endpoint": "/users",
+      "responses": [
+        {
+          "uuid": "d98b62a9-8a44-4240-9d68-4a0fbce23d13",
+          "statusCode": 200,
+          "body": "[{\"id\":\"1\",\"name\":\"Adrian Rice\",\"email\":\"Maximus75@gmail.com\"},{\"id\":\"2\",\"name\":\"Myra Armstrong\",\"email\":\"Kobe20@yahoo.com\"},{\"id\":\"3\",\"name\":\"Duane Parker\",\"email\":\"Jovanny88@gmail.com\"},{\"id\":\"4\",\"name\":\"Troy McLaughlin-Erdman Sr.\",\"email\":\"Sabrina_McKenzie78@yahoo.com\"},{\"id\":\"5\",\"name\":\"Mrs. Florence Haag\",\"email\":\"Edwina11@gmail.com\"},{\"id\":\"6\",\"name\":\"Carroll Fay\",\"email\":\"Maritza69@hotmail.com\"},{\"id\":\"7\",\"name\":\"Ana Kilback\",\"email\":\"Murray88@hotmail.com\"},{\"id\":\"8\",\"name\":\"Joanne Greenfelder\",\"email\":\"Marlen19@gmail.com\"},{\"id\":\"9\",\"name\":\"Albert Schultz\",\"email\":\"Justice49@yahoo.com\"},{\"id\":\"10\",\"name\":\"Travis Auer\",\"email\":\"Leann.Mayer91@gmail.com\"}]",
+          "rules": [],
+          "latency": 3000,
+          "default": false,
+          "headers": [],
+          "label": "",
+          "filePath": "",
+          "sendFileAsBody": false
+        }
+      ],
+      "responseMode": "SEQUENTIAL"
+    },
+    {
+      "uuid": "c6437f6b-2624-40bc-b7a0-1cef03beb412",
+      "method": "put",
+      "endpoint": "/users/:id",
+      "responses": [
+        {
+          "uuid": "88260618-3080-41d6-89b1-ec45ac1a1c0f",
+          "statusCode": 200,
+          "body": "{\"message\": \"User {{urlParam 'id'}} updated successfully\", \"updatedFields\": { \"name\": \"{{body 'name'}}\", \"email\": \"{{body 'email'}}\" }}",
+          "rules": [],
+          "latency": 300,
+          "default": false,
+          "headers": [],
+          "label": "",
+          "filePath": "",
+          "sendFileAsBody": false
+        },
+        {
+          "uuid": "2db5e829-51a8-4cbe-a94c-afc05fd79a7a",
+          "statusCode": 404,
+          "body": "{}",
+          "rules": [],
+          "latency": 0,
+          "default": false,
+          "headers": [],
+          "label": "",
+          "filePath": "",
+          "sendFileAsBody": false
+        }
+      ],
+      "responseMode": "SEQUENTIAL"
+    },
+    {
+      "uuid": "925bd3a5-ef9d-4b03-a088-6f71f3192d34",
+      "method": "delete",
+      "endpoint": "/users/:id",
+      "responses": [
+        {
+          "uuid": "d304825b-6401-4daa-b902-8bcedbaa0ff9",
+          "statusCode": 200,
+          "body": "{\"message\": \"User {{urlParam 'id'}} deleted successfully\"}",
+          "rules": [],
+          "latency": 0,
+          "default": true,
+          "headers": [],
+          "label": "",
+          "filePath": "",
+          "sendFileAsBody": false
+        },
+        {
+          "uuid": "f81cd8cb-d1c6-4fcc-9ce1-5172a42cf3a4",
+          "statusCode": 404,
+          "body": "{\"message\": \"User {{urlParam 'id'}} doesnt exist!\"}",
+          "rules": [],
+          "latency": 0,
+          "default": false,
+          "headers": [],
+          "label": "",
+          "filePath": "",
+          "sendFileAsBody": false
+        }
+      ],
+      "responseMode": "RANDOM"
+    },
+    {
+      "uuid": "e580ba09-7e31-4ce9-a429-8ca4c8ee6ca4",
+      "method": "get",
+      "endpoint": "/",
+      "responses": [
+        {
+          "uuid": "9a4a75a6-9981-420a-b397-d61b06411e9c",
+          "statusCode": 200,
+          "body": "\"Yup! Working!\"",
+          "rules": [],
+          "latency": 0,
+          "default": true,
+          "headers": [],
+          "label": "",
+          "filePath": "",
+          "sendFileAsBody": false
+        }
+      ],
+      "responseMode": "SEQUENTIAL"
+    }
+  ]
+}

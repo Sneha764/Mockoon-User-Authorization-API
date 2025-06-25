@@ -97,6 +97,10 @@ mockoon-user-auth-api/
 ├── run-mock-server.js                              # Node script to launch CLI mock server
 ├── Mockoon Testing.postman_test_run_results.json   # Results obtained after running collection in POSTMAN
 ├── postman-auth-tests-collection.json              # POSTMAN collection for API testing
+├── coded-server                                    # javascript code for mock server
+    ├── build-env.js                                # JS to define routes and its behaviour and creates a json file 
+    ├── mock-env-coded.json                         # Mock server API configuration
+    ├── Mockoon Testing.postman_test_run_results.json   # Results obtained after running collection in POSTMAN
 ├── auth-ui/
     ├── index.html                 
     ├── style.css                   
