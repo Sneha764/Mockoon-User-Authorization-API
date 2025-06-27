@@ -1,7 +1,7 @@
 const fs = require('fs'); //  Node.js built-in module that loads FILE SYSTEM for reading/writing files
 const { faker } = require('@faker-js/faker');
 
-// Manually define environment object as per Mockoon schema
+// definition of env object based on mockoon schema
 const environment = {
   uuid: faker.string.uuid(),
   name: 'User Auth Coded Server',
@@ -16,7 +16,7 @@ const environment = {
   routes: []
 };
 
-// Helper: Create route response
+// Function: Create route response
 function createResponse({ statusCode, body, rules = [], defaultResponse = false, latency = 0 }) {
   return {
     uuid: faker.string.uuid(),
@@ -32,7 +32,7 @@ function createResponse({ statusCode, body, rules = [], defaultResponse = false,
   };
 }
 
-// Helper: Add a route
+// Function: Add a route
 function addRoute(method, endpoint, responses, responseMode = 'SEQUENTIAL') {
   environment.routes.push({
     uuid: faker.string.uuid(),
@@ -43,7 +43,7 @@ function addRoute(method, endpoint, responses, responseMode = 'SEQUENTIAL') {
   });
 }
 
-// ---- Routes ----
+// Routes
 
 // Signup
 addRoute('post', '/auth/signup', [
@@ -135,11 +135,11 @@ addRoute('delete', '/users/:id', [
   })
 ], 'RANDOM');
 
-// Health check
+// Root route, To check if server is running
 addRoute('get', '/', [
   createResponse({ statusCode: 200, body: `"Yup! Working!"`, defaultResponse: true })
 ]);
 
-// ---- Save to file ----
+// Save as json file
 fs.writeFileSync('mock-env-coded.json', JSON.stringify(environment, null, 2));
 console.log('✅ mock-env-coded.json created from build-env.js');
