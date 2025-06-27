@@ -101,7 +101,7 @@ mockoon-user-auth-api/
     ├── build-env.js                                # JS to define routes and its behaviour and creates a json file 
     ├── mock-env-coded.json                         # Mock server API configuration
     ├── Mockoon Testing.postman_test_run_results.json   # Results obtained after running collection in POSTMAN
-├── auth-ui/
+├── auth-ui/                                        # Built a frontend to test the API 
     ├── index.html                 
     ├── style.css                   
     ├── script.js                     
